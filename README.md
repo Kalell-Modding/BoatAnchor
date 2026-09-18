@@ -29,9 +29,32 @@ The anchor's physics are handled by whichever player currently owns the boat. If
 * The anchor prevents horizontal **X/Z movement**, but the boat can still naturally bob up and down with the waves.
 * Anchor state is saved with the boat and persists through logging out and back in.
 
+## Boat Dismantling (optional)
+
+Boat Anchor can optionally let you dismantle boats with **Hammer → Remove**, blocking removal while a player is onboard or the boat's storage still has items in it.
+
+This is controlled by the **Boat Dismantling → Enable** config option (`true` by default). Turn it off if you'd rather use vanilla behavior, or a different mod, to handle boat (and cart) dismantling:
+
+* When **enabled**, Boat Anchor performs its own onboard/storage safety checks before allowing the removal.
+* When **disabled**, Boat Anchor doesn't touch boat removal at all — it doesn't flag boats as removable, doesn't intercept the removal call, and doesn't block anything. Vanilla behavior and any other boat/cart-dismantling mod are left completely free to handle it themselves.
+
 ## Changelog
 
-### 1.3.0
+### 1.3.3
+
+* Fixed a compatibility issue where disabling **Boat Dismantling** still blocked other mods (e.g. boat/cart dismantling mods) from removing boats.
+* When the **Boat Dismantling** option is disabled, Boat Anchor now leaves boat removal completely untouched instead of forcing it off, so other mods and vanilla behavior can take over cleanly.
+
+### 1.3.2
+
+* Added optional **Hammer → Remove** support for boats.
+* Boats can only be dismantled when **no player is onboard**.
+* Boats cannot be dismantled while their **storage contains items**.
+* Added warning messages explaining why a boat cannot be dismantled.
+* Boat dismantling uses Valheim's normal removal behavior so build materials are returned.
+* Added a **Boat Dismantling** config option (`Enable = true` by default) to turn the feature on or off without affecting the anchor system.
+
+### 1.3.1
 
 * Boats now continue to bob naturally with the waves while anchored.
 * Moved the anchor prompt from the center of the screen to the standard hover-text box.
